@@ -1,0 +1,8 @@
+<h1>Fetch Todo Data</h1>
+<ul *ngFor="let todo of todos">
+  <li>
+    <p>{{ todo.id }}. {{ todo.user.name }}</p>
+    <p>{{ todo.title }}</p>
+    <p>{{ todo.completed }}</p>
+  </li>
+</ul>

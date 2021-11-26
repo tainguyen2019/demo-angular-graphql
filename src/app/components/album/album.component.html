@@ -1,1 +1,31 @@
-<p>album works!</p>
+<mat-spinner
+  strokeWidth="4"
+  [diameter]="40"
+  color="warning"
+  *ngIf="loading"
+></mat-spinner>
+<div class="container">
+  <div
+    *ngFor="
+      let album of albums
+        | paginate
+          : {
+              id: 'album',
+              itemsPerPage: limit,
+              currentPage: page,
+              totalItems: totalItems
+            }
+    "
+  >
+    <app-image-list [data]="album"></app-image-list>
+  </div>
+</div>
+
+<div class="pagination" *ngIf="!loading">
+  <pagination-controls
+    id="album"
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>

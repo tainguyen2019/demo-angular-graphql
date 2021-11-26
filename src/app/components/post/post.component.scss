@@ -1,0 +1,41 @@
+.mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 24px;
+  padding: 12px 24px;
+}
+
+.mat-card {
+  height: 80%;
+}
+
+.item {
+  height: 100%;
+  margin-bottom: 24px;
+}
+
+.post-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.post-body {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}

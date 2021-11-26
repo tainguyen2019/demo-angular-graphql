@@ -1,8 +1,16 @@
+* {
+  color: white;
+}
+
+.mat-toolbar {
+  background-color: rgb(33, 150, 243);
+}
+
 .link {
-  font-size: 16px;
+  padding: 4px 0;
+  font-size: 18px;
   text-transform: none;
   text-decoration: none;
-  color: white;
   &:hover {
     border-bottom: 2px solid #ffa726;
     margin-bottom: -2px;

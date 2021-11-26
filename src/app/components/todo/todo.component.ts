@@ -26,22 +26,38 @@ const GET_TODOS = gql`
   styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit, OnDestroy {
-  loading: boolean | undefined;
+  loading = true;
   todos: any;
+  totalItems: number | undefined;
+  page = 1;
+  limit = 9;
 
   private querySubscription: Subscription | undefined;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
+    this.getTodos();
+  }
+
+  ngOnDestroy() {
+    if (this.querySubscription) this.querySubscription.unsubscribe();
+  }
+
+  handlePageChange(event: any): void {
+    this.page = event;
+    this.getTodos();
+  }
+
+  getTodos() {
     this.querySubscription = this.apollo
       .watchQuery<any>({
         query: GET_TODOS,
         variables: {
           options: {
             paginate: {
-              page: 1,
-              limit: 5,
+              page: this.page,
+              limit: this.limit,
             },
           },
         },
@@ -49,10 +65,7 @@ export class TodoComponent implements OnInit, OnDestroy {
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading;
         this.todos = data.todos.data;
+        this.totalItems = data.todos.meta.totalCount;
       });
-  }
-
-  ngOnDestroy() {
-    if (this.querySubscription) this.querySubscription.unsubscribe();
   }
 }

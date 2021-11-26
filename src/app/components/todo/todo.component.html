@@ -1,8 +1,36 @@
-<h1>Fetch Todo Data</h1>
-<ul *ngFor="let todo of todos">
-  <li>
-    <p>{{ todo.id }}. {{ todo.user.name }}</p>
-    <p>{{ todo.title }}</p>
-    <p>{{ todo.completed }}</p>
-  </li>
-</ul>
+<mat-spinner
+  strokeWidth="4"
+  [diameter]="40"
+  color="warning"
+  *ngIf="loading"
+></mat-spinner>
+<div class="container">
+  <div
+    *ngFor="
+      let todo of todos
+        | paginate
+          : {
+              id: 'todo',
+              itemsPerPage: limit,
+              currentPage: page,
+              totalItems: totalItems
+            }
+    "
+  >
+    <div class="item">
+      <mat-card>
+        <p>{{ todo.id }}. {{ todo.user.name }}</p>
+        <p>{{ todo.title }}</p>
+        <p>{{ todo.completed }}</p>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="pagination" *ngIf="!loading">
+  <pagination-controls
+    id="todo"
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>

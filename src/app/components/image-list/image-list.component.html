@@ -1,0 +1,13 @@
+<mat-card>
+  <div class="album-title text-overflow">{{ data.id }}. {{ data.title }}</div>
+  <div class="container">
+    <div *ngFor="let photo of data.photos.data">
+      <div class="item">
+        <img [src]="photo.url" />
+        <div class="title text-overflow">
+          {{ photo.title }}
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -23,22 +23,38 @@ const GET_POSTS = gql`
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit, OnDestroy {
-  loading: boolean | undefined;
+  loading = true;
   posts: any;
+  totalItems: number | undefined;
+  page = 1;
+  limit = 6;
 
   private querySubscription: Subscription | undefined;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
+    this.getPosts();
+  }
+
+  ngOnDestroy() {
+    if (this.querySubscription) this.querySubscription.unsubscribe();
+  }
+
+  handlePageChange(event: any): void {
+    this.page = event;
+    this.getPosts();
+  }
+
+  getPosts() {
     this.querySubscription = this.apollo
       .watchQuery<any>({
         query: GET_POSTS,
         variables: {
           options: {
             paginate: {
-              page: 1,
-              limit: 5,
+              page: this.page,
+              limit: this.limit,
             },
           },
         },
@@ -46,10 +62,7 @@ export class PostComponent implements OnInit, OnDestroy {
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading;
         this.posts = data.posts.data;
+        this.totalItems = data.posts.meta.totalCount;
       });
-  }
-
-  ngOnDestroy() {
-    if (this.querySubscription) this.querySubscription.unsubscribe();
   }
 }

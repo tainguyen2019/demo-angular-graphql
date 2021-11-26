@@ -1,7 +1,35 @@
-<h1>Fetch Post Data</h1>
-<ul *ngFor="let post of posts">
-  <li>
-    <p>{{ post.id }}. {{ post.title }}</p>
-    <p>{{ post.body }}</p>
-  </li>
-</ul>
+<mat-spinner
+  strokeWidth="4"
+  [diameter]="40"
+  color="warning"
+  *ngIf="loading"
+></mat-spinner>
+<div class="container">
+  <div
+    *ngFor="
+      let post of posts
+        | paginate
+          : {
+              id: 'post',
+              itemsPerPage: limit,
+              currentPage: page,
+              totalItems: totalItems
+            }
+    "
+  >
+    <div class="item">
+      <mat-card>
+        <div class="post-title">{{ post.id }}. {{ post.title }}</div>
+        <div class="post-body">{{ post.body }}</div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="pagination" *ngIf="!loading">
+  <pagination-controls
+    id="post"
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>

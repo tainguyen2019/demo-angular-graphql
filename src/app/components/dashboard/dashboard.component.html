@@ -1,1 +1,14 @@
-<h1>Dashboard Page</h1>
+<div class="dashboard-items">
+  <mat-card *ngFor="let item of dashboardItemsData">
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <div class="text">{{ item.value }} {{ item.name }}</div>
+  </mat-card>
+</div>
+<div class="latest-items">
+  <div class="text">Latest Todos</div>
+  <app-todo [enableActions]="false" [enablePaginator]="false"></app-todo>
+</div>
+<div class="latest-items">
+  <div class="text">Latest Posts</div>
+  <app-post [enableActions]="false" [enablePaginator]="false"></app-post>
+</div>

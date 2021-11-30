@@ -1,0 +1,38 @@
+<h1 mat-dialog-title *ngIf="data.action === 'edit'">Update post</h1>
+<h1 mat-dialog-title *ngIf="data.action === 'create'">Create post</h1>
+<div mat-dialog-content>
+  <div class="form-container">
+    <mat-form-field appearance="fill" class="input-full-width">
+      <mat-label>Id</mat-label>
+      <input matInput [ngModel]="formData.id" disabled />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input-full-width">
+      <mat-label>Title</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="formData.title"
+        cdkTextareaAutosize
+        autofocus
+        required
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="input-full-width">
+      <mat-label>Body</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="formData.body"
+        cdkTextareaAutosize
+        required
+      ></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button mat-stroked-button (click)="onNoClick()" color="accent">
+    Cancel
+  </button>
+  <button mat-button mat-stroked-button (click)="onSubmit()" color="primary">
+    Submit
+  </button>
+</div>

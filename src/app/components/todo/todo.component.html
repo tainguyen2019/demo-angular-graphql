@@ -19,14 +19,44 @@
   >
     <div class="item">
       <mat-card>
-        <p>{{ todo.id }}. {{ todo.user.name }}</p>
-        <p>{{ todo.title }}</p>
-        <p>{{ todo.completed }}</p>
+        <div class="row">
+          <div class="username">{{ todo.id }}. {{ todo.user.name }}</div>
+          <mat-chip-list>
+            <mat-chip
+              *ngIf="!todo.completed"
+              style="color: #ffa726; border-color: #ffa726"
+            >
+              Pending
+              <mat-icon>pending</mat-icon>
+            </mat-chip>
+            <mat-chip
+              *ngIf="todo.completed"
+              style="color: #2e7d32; border-color: #2e7d32"
+            >
+              Completed
+              <mat-icon>check</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="title">{{ todo.title }}</div>
+        <div class="actions" *ngIf="enableActions">
+          <button mat-stroked-button color="warn" (click)="deleteTodo(todo.id)">
+            Delete
+          </button>
+          <button
+            mat-stroked-button
+            color="primary"
+            *ngIf="!todo.completed"
+            (click)="completeTodo(todo.id)"
+          >
+            Complete
+          </button>
+        </div>
       </mat-card>
     </div>
   </div>
 </div>
-<div class="pagination" *ngIf="!loading">
+<div class="pagination" *ngIf="!loading && enablePaginator">
   <pagination-controls
     id="todo"
     previousLabel="Prev"
@@ -34,3 +64,14 @@
     (pageChange)="handlePageChange($event)"
   ></pagination-controls>
 </div>
+
+<button
+  *ngIf="enableActions"
+  mat-fab
+  color="primary"
+  title="New todo"
+  class="create-button"
+  (click)="createTodo()"
+>
+  <mat-icon>add</mat-icon>
+</button>

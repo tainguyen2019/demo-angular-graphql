@@ -21,11 +21,19 @@
       <mat-card>
         <div class="post-title">{{ post.id }}. {{ post.title }}</div>
         <div class="post-body">{{ post.body }}</div>
+        <button
+          *ngIf="enableActions"
+          mat-stroked-button
+          color="primary"
+          (click)="editPost(post.id)"
+        >
+          Edit
+        </button>
       </mat-card>
     </div>
   </div>
 </div>
-<div class="pagination" *ngIf="!loading">
+<div class="pagination" *ngIf="!loading && enablePaginator">
   <pagination-controls
     id="post"
     previousLabel="Prev"
@@ -33,3 +41,14 @@
     (pageChange)="handlePageChange($event)"
   ></pagination-controls>
 </div>
+
+<button
+  *ngIf="enableActions"
+  mat-fab
+  color="primary"
+  title="New post"
+  class="create-button"
+  (click)="createPost()"
+>
+  <mat-icon>add</mat-icon>
+</button>

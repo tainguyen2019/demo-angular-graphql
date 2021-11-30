@@ -16,6 +16,32 @@
 
 .mat-card {
   height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .row {
+    display: flex;
+    justify-content: space-between;
+    .username {
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+  .title {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    button {
+      margin-top: 12px;
+      width: 96px;
+      margin: 0 12px;
+    }
+  }
 }
 
 .item {
@@ -27,4 +53,19 @@
   display: flex;
   justify-content: center;
   margin-top: 24px;
+}
+
+.mat-chip {
+  display: flex;
+  justify-content: space-around;
+  background: none;
+  border-width: 1px;
+  border-style: solid;
+  width: 112px;
+}
+
+.create-button {
+  position: fixed;
+  bottom: 48px;
+  right: 48px;
 }
